@@ -17,17 +17,24 @@ variables:
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
+  displayName: 'Install .NET Core SDK 7.x'
   inputs:
     version: 7.x
     performMultiLevelLookup: true
     includePreviewVersions: true # Required for preview versions
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'dotnet --version'
 - task: DotNetCoreCLI@2
   displayName: dotnet restore
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'select'
+
+
 
 #- task: DotNetCoreCLI@2
 #  displayName: dotnet test
@@ -49,6 +56,7 @@ steps:
 #    zipAfterPublish: true
 
 - task: DotNetCoreCLI@2
+  displayName: dotnet pack
   inputs:
     command: 'pack'
     packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
