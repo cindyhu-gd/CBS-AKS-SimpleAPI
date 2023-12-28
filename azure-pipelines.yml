@@ -31,14 +31,29 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration) 
   displayName: dotnet build
 
+#- task: DotNetCoreCLI@2
+#  displayName: dotnet publish
+#  inputs:
+#    command: 'publish'
+#    publishWebProjects: false
+#    projects: 'src/SimpleAPI/SimpleAPI.csproj'
+#    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+#    zipAfterPublish: true
+
 - task: DotNetCoreCLI@2
-  displayName: dotnet publish
   inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'src/SimpleAPI/SimpleAPI.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) -p:PackageId SimpleAPI'
-    zipAfterPublish: true
+    command: 'pack'
+    packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
+    nobuild: true
+    versioningScheme: 'byBuildNumber'
+    buildProperties: '-p:PackageId SimpleAPI --outupt (Build.ArtifactStagingDirectory)'
+
+- task: Bash@3
+  displayName: check files under $(Build.ArtifactStagingDirectory)
+  inputs:
+    targetType: 'inline'
+    script: |
+      dir $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
