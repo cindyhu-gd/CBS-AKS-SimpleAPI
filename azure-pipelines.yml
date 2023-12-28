@@ -37,14 +37,12 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet publish
+- task: NuGetCommand@2
+  displayName: nuget pack
   inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'src/SimpleAPI/SimpleAPI.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    modifyOutputPath: false
+    command: 'pack'
+    packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
+    versioningScheme: 'byBuildNumber'
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
