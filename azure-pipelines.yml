@@ -61,7 +61,7 @@ steps:
     command: 'pack'
     packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
     nobuild: true
-    buildProperties: '--outupt (Build.ArtifactStagingDirectory)'
+    buildProperties: '--outupt $(Build.ArtifactStagingDirectory)'
 
 - task: Bash@3
   displayName: check files under $(Build.ArtifactStagingDirectory)
