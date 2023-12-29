@@ -46,22 +46,22 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration) 
   displayName: dotnet build
 
-#- task: DotNetCoreCLI@2
-#  displayName: dotnet publish
-#  inputs:
-#    command: 'publish'
-#    publishWebProjects: false
-#    projects: 'src/SimpleAPI/SimpleAPI.csproj'
-#    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#    zipAfterPublish: true
-
 - task: DotNetCoreCLI@2
-  displayName: dotnet pack
+  displayName: dotnet publish
   inputs:
-    command: 'pack'
-    packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
-    nobuild: true
-    arguments: '/p:PackageId=SimpleAPI /p:PackageVersion=1.0.0 --outupt $(Build.ArtifactStagingDirectory)'
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'src/SimpleAPI/SimpleAPI.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:PackageId=SimpleAPI /p:PackageVersion=1.0.0'
+    zipAfterPublish: true
+
+#- task: DotNetCoreCLI@2
+#  displayName: dotnet pack
+#  inputs:
+#    command: 'pack'
+#    packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
+#    nobuild: true
+#    arguments: '/p:PackageId=SimpleAPI /p:PackageVersion=1.0.0 --outupt $(Build.ArtifactStagingDirectory)'
 
 - task: Bash@3
   displayName: check files under $(Build.ArtifactStagingDirectory)
