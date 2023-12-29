@@ -68,7 +68,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      dir $(Build.ArtifactStagingDirectory)
+      dir '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
