@@ -75,7 +75,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      cd $(Build.ArtifactStagingDirectory
+      cd $(Build.ArtifactStagingDirectory)
       echo | tee ./build_info.json <<EOF
       {
          "JiraIssueKey": "RE-42897",
@@ -84,7 +84,13 @@ steps:
       }
       EOF
       ls -l .
-
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello world'
 - task: PublishBuildArtifacts@1
   displayName: 'publish artifacts'
   inputs:
