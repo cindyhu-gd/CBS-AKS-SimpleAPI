@@ -79,7 +79,7 @@ steps:
       echo | tee ./build_info.json <<EOF
       {
          "JiraIssueKey": "RE-42897",
-          "RepoName": "CindySampleAPI)",
+          "RepoName": "CindySampleAPI",
           "CommitHash": "$(Build.SourceVersion)"
       }
       EOF
