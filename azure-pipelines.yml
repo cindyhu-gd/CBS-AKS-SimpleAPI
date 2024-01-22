@@ -70,19 +70,12 @@ steps:
     script: |
       dir '$(Build.ArtifactStagingDirectory)'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-    MaxArtifactSize: 0
 - task: Bash@3
   displayName: Create build_info.
   inputs:
     targetType: 'inline'
     script: |
-      cd drop
+      cd $(Build.ArtifactStagingDirectory
       echo | tee ./build_info.json <<EOF
       {
          "JiraIssueKey": "RE-42897",
@@ -91,3 +84,11 @@ steps:
       }
       EOF
       ls -l .
+
+- task: PublishBuildArtifacts@1
+  displayName: 'publish artifacts'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+    MaxArtifactSize: 0
