@@ -3,6 +3,13 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Green-Dot-Corporation
+      name: Green-Dot-Corporation/re-ado-pipelines
+      ref: cindy/RE-42897
 trigger:
 - main
 
