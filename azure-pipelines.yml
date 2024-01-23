@@ -107,10 +107,15 @@ steps:
       # Write your commands here
       
       echo 'Hello world'
-- task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
+#- task: PublishBuildArtifacts@1
+#  displayName: 'publish artifacts'
+#  inputs:
+##    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'drop'
+#    publishLocation: 'Container'
+#    MaxArtifactSize: 0
+
+- task: PublishPipelineArtifact@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-    MaxArtifactSize: 0
+    artifactName: 'drop'
+    path: $(Build.ArtifactStagingDirectory)
