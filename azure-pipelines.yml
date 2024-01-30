@@ -9,7 +9,7 @@ resources:
       type: github
       endpoint: Green-Dot-Corporation
       name: Green-Dot-Corporation/re-ado-pipelines
-      ref: cindy/RE-42897
+      ref: RE-42897
 trigger:
 - main
 
