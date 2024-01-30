@@ -23,7 +23,7 @@ variables:
 
 steps:
 - checkout: self
-- checkout: re-ado-pipelines
+- checkout: templates
 
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK 7.x'
