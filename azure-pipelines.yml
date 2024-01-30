@@ -117,5 +117,5 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    artifactName: 'drop'
+    artifactName: 'chart'
     path: $(Build.ArtifactStagingDirectory)
