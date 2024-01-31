@@ -92,7 +92,7 @@ stages:
               ls -la
               cd '$(Build.ArtifactStagingDirectory)'
               mkdir -p utilities
-              cp -f $(Build.SourcesDirectory)/scripts/AddDeployCommentOnJiraIssue.sh utilities/
+              cp -f $(System.DefaultWorkingDirectory)/scripts/AddDeployCommentOnJiraIssue.sh utilities/
               ls -l .
     - job: PublishArtifact
       dependsOn: Build
