@@ -76,7 +76,7 @@ stages:
               echo | tee ./build_info.json <<EOF
               {
                 "JiraIssueKey": "RE-42897",
-                "RepoName": "CindySampleAPI",
+                "RepoName": "$(Build.Repository.Name)",
                 "CommitHash": "$(Build.SourceVersion)"
               }
               EOF
