@@ -22,7 +22,7 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: Build
+- stage: BuildAndPublish
   jobs:
     - job: Build
       displayName: Build Source Code
