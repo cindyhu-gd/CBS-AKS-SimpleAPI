@@ -97,7 +97,7 @@ stages:
             script: |
               cd '$(Build.ArtifactStagingDirectory)'
               mkdir -p utilities
-              cp -f re-ado-pipelines/scripts/AddDeployCommentOnJiraIssue.sh utilities/
+              cp -f scripts/AddDeployCommentOnJiraIssue.sh utilities/
               ls -l .
 - stage: PublishArtifact
   jobs:
