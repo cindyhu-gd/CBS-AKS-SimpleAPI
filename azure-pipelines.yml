@@ -21,110 +21,79 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- checkout: self
-- checkout: templates
+stages:
+- stage: Build
+  jobs:
+    - job: Build
+      displayName: Build Source Code
+      steps:
+        - checkout: self
+        - task: Bash@3
+          displayName: check repo structure
+          inputs:
+            targetType: 'inline'
+            script: |
+              pwd
+              ls -la
+        - task: UseDotNet@2
+          displayName: 'Install .NET Core SDK 7.x'
+          inputs:
+            version: 7.x
+            performMultiLevelLookup: true
+            includePreviewVersions: true # Required for preview versions
+        - task: UseDotNet@2
+          displayName: 'Install .NET Core SDK 7.x'
+          inputs:
+            version: 7.x
+            performMultiLevelLookup: true
+            includePreviewVersions: true # Required for preview versions
 
-- task: Bash@3
-  displayName: check repo structure
-  inputs:
-    targetType: 'inline'
-    script: |
-      pwd
-      ls -la
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK 7.x'
-  inputs:
-    version: 7.x
-    performMultiLevelLookup: true
-    includePreviewVersions: true # Required for preview versions
+        - script: dotnet build --configuration $(buildConfiguration) 
+          displayName: dotnet build
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'dotnet --version'
-- task: DotNetCoreCLI@2
-  displayName: dotnet restore
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
-    feedsToUse: 'select'
+        - task: DotNetCoreCLI@2
+          displayName: dotnet publish
+          inputs:
+            command: 'publish'
+            publishWebProjects: false
+            projects: 'src/SimpleAPI/SimpleAPI.csproj'
+            arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:PackageId=SimpleAPI /p:PackageVersion=1.0.0'
+            zipAfterPublish: true
 
-
-
-#- task: DotNetCoreCLI@2
-#  displayName: dotnet test
-#  inputs:
-#    command: 'test'
-#    projects: '**/*Tests/*.csproj'
-#    arguments: '--configuration $(buildConfiguration)'
-
-- script: dotnet build --configuration $(buildConfiguration) 
-  displayName: dotnet build
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet publish
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'src/SimpleAPI/SimpleAPI.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:PackageId=SimpleAPI /p:PackageVersion=1.0.0'
-    zipAfterPublish: true
-
-#- task: DotNetCoreCLI@2
-#  displayName: dotnet pack
-#  inputs:
-#    command: 'pack'
-#    packagesToPack: 'src/SimpleAPI/SimpleAPI.csproj'
-#    nobuild: true
-#    arguments: '/p:PackageId=SimpleAPI /p:PackageVersion=1.0.0 --outupt $(Build.ArtifactStagingDirectory)'
-
-- task: Bash@3
-  displayName: check files under $(Build.ArtifactStagingDirectory)
-  inputs:
-    targetType: 'inline'
-    script: |
-      dir '$(Build.ArtifactStagingDirectory)'
-
-- task: Bash@3
-  displayName: Create build_info.
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd '$(Build.ArtifactStagingDirectory)'
-      echo | tee ./build_info.json <<EOF
-      {
-         "JiraIssueKey": "RE-42897",
-          "RepoName": "CindySampleAPI",
-          "CommitHash": "$(Build.SourceVersion)"
-      }
-      EOF
-      ls -l .
-- task: Bash@3
-  displayName: Copy script
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd '$(Build.ArtifactStagingDirectory)'
-      mkdir -p utilities
-      cp -f re-ado-pipelines/scripts/AddDeployCommentOnJiraIssue.sh utilities/
-      ls -l .
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-      echo 'Hello world'
-#- task: PublishBuildArtifacts@1
-#  displayName: 'publish artifacts'
-#  inputs:
-##    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#    ArtifactName: 'drop'
-#    publishLocation: 'Container'
-#    MaxArtifactSize: 0
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    artifactName: 'chart'
-    path: $(Build.ArtifactStagingDirectory)
+        - task: Bash@3
+          displayName: check files under $(Build.ArtifactStagingDirectory)
+          inputs:
+            targetType: 'inline'
+            script: |
+              dir '$(Build.ArtifactStagingDirectory)'
+    - job: CreateReleaseNotes
+      steps:
+        - task: Bash@3
+          displayName: Create build_info.json
+          inputs:
+            targetType: 'inline'
+            script: |
+              cd '$(Build.ArtifactStagingDirectory)'
+              echo | tee ./build_info.json <<EOF
+              {
+                "JiraIssueKey": "RE-42897",
+                "RepoName": "CindySampleAPI",
+                "CommitHash": "$(Build.SourceVersion)"
+              }
+              EOF
+              ls -l .
+        - task: Bash@3
+          displayName: Copy RE scripts
+          inputs:
+            targetType: 'inline'
+            script: |
+              cd '$(Build.ArtifactStagingDirectory)'
+              mkdir -p utilities
+              cp -f re-ado-pipelines/scripts/AddDeployCommentOnJiraIssue.sh utilities/
+              ls -l .
+    - job: PublishArtifact
+      steps:
+      - task: PublishPipelineArtifact@1
+        inputs:
+          artifactName: 'chart'
+          path: $(Build.ArtifactStagingDirectory)
