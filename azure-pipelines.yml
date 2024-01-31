@@ -66,14 +66,7 @@ stages:
             targetType: 'inline'
             script: |
               dir '$(Build.ArtifactStagingDirectory)'
-        - task: PublishPipelineArtifact@1
-          inputs:
-            artifactName: 'chart'
-            path: $(Build.ArtifactStagingDirectory)
 
-    - job: PublishReleaseInfo
-      steps:
-        - checkout: templates
         - task: Bash@3
           displayName: Create build_info.json
           inputs:
@@ -88,6 +81,14 @@ stages:
               }
               EOF
               ls -l .
+        - task: PublishPipelineArtifact@1
+          inputs:
+            artifactName: 'chart'
+            path: $(Build.ArtifactStagingDirectory)
+
+    - job: PublishREScripts
+      steps:
+        - checkout: templates
         - task: Bash@3
           displayName: Copy RE scripts
           inputs:
