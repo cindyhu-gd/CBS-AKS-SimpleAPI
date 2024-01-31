@@ -101,5 +101,5 @@ stages:
               ls -l .
         - task: PublishPipelineArtifact@1
           inputs:
-            artifactName: 'chart'
+            artifactName: 'RE'
             path: publish
