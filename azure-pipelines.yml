@@ -96,12 +96,10 @@ stages:
               echo "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
               pwd
               ls -la
-              echo "Build.ArtifactStagingDirectory: $(Build.ArtifactStagingDirectory)"
-              cd '$(Build.ArtifactStagingDirectory)'
-              mkdir -p utilities
-              cp -f $(System.DefaultWorkingDirectory)/scripts/AddDeployCommentOnJiraIssue.sh utilities/
+              mkdir -p publish
+              cp -f "scripts/AddDeployCommentOnJiraIssue.sh" publish/
               ls -l .
         - task: PublishPipelineArtifact@1
           inputs:
             artifactName: 'chart'
-            path: $(Build.ArtifactStagingDirectory)
+            path: publish
