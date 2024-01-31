@@ -25,6 +25,13 @@ steps:
 - checkout: self
 - checkout: templates
 
+- task: Bash@3
+  displayName: check repo structure
+  inputs:
+    targetType: 'inline'
+    script: |
+      pwd
+      ls -la
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK 7.x'
   inputs:
