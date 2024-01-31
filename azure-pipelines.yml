@@ -70,13 +70,6 @@ stages:
       steps:
         - checkout: templates
         - task: Bash@3
-          displayName: check repo structure
-          inputs:
-            targetType: 'inline'
-            script: |
-              pwd
-              ls -la
-        - task: Bash@3
           displayName: Create build_info.json
           inputs:
             targetType: 'inline'
@@ -95,11 +88,14 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
+              pwd
+              ls -la
               cd '$(Build.ArtifactStagingDirectory)'
               mkdir -p utilities
               cp -f $(Build.SourcesDirectory)/scripts/AddDeployCommentOnJiraIssue.sh utilities/
               ls -l .
     - job: PublishArtifact
+      dependsOn: Build
       steps:
       - task: PublishPipelineArtifact@1
         inputs:
