@@ -99,8 +99,6 @@ stages:
               mkdir -p utilities
               cp -f scripts/AddDeployCommentOnJiraIssue.sh utilities/
               ls -l .
-- stage: PublishArtifact
-  jobs:
     - job: PublishArtifact
       steps:
       - task: PublishPipelineArtifact@1
