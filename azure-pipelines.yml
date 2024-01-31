@@ -68,6 +68,7 @@ stages:
               dir '$(Build.ArtifactStagingDirectory)'
     - job: CreateReleaseNotes
       steps:
+        - checkout: templates
         - task: Bash@3
           displayName: Create build_info.json
           inputs:
