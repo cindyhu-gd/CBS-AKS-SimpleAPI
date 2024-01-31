@@ -66,7 +66,12 @@ stages:
             targetType: 'inline'
             script: |
               dir '$(Build.ArtifactStagingDirectory)'
-    - job: CreateReleaseNotes
+        - task: PublishPipelineArtifact@1
+          inputs:
+            artifactName: 'chart'
+            path: $(Build.ArtifactStagingDirectory)
+
+    - job: PublishReleaseInfo
       steps:
         - checkout: templates
         - task: Bash@3
@@ -88,16 +93,15 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
+              echo "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
               pwd
               ls -la
+              echo "Build.ArtifactStagingDirectory: $(Build.ArtifactStagingDirectory)"
               cd '$(Build.ArtifactStagingDirectory)'
               mkdir -p utilities
               cp -f $(System.DefaultWorkingDirectory)/scripts/AddDeployCommentOnJiraIssue.sh utilities/
               ls -l .
-    - job: PublishArtifact
-      dependsOn: Build
-      steps:
-      - task: PublishPipelineArtifact@1
-        inputs:
-          artifactName: 'chart'
-          path: $(Build.ArtifactStagingDirectory)
+        - task: PublishPipelineArtifact@1
+          inputs:
+            artifactName: 'chart'
+            path: $(Build.ArtifactStagingDirectory)
