@@ -75,7 +75,7 @@ stages:
             targetType: 'inline'
             script: |
               fullrepo="$(Build.Repository.Name)"
-              prefix="Green-Dot-Corporation/";
+              prefix="cindyhu-gd/";
               REPO=${fullrepo#$prefix}
               IFS='-' read -ra REPO_PARTS <<< "${REPO}"
               
