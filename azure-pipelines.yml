@@ -114,7 +114,7 @@ stages:
               pwd
               ls -la
               mkdir -p publish
-              cp -f "scripts/AddDeployCommentOnJiraIssue.sh" publish/
+              cp -f "scripts/AddDeployResultOnJiraIssue.sh" publish/
               ls -l .
         - task: PublishPipelineArtifact@1
           inputs:
