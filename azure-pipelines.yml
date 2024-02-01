@@ -67,6 +67,22 @@ stages:
             script: |
               dir '$(Build.ArtifactStagingDirectory)'
 
+          #Setting variables to be used in future steps
+        - task: Bash@3
+          name: setvarStep
+          displayName: 'Set Variables'
+          inputs:
+            targetType: 'inline'
+            script: |
+              fullrepo="$(Build.Repository.Name)"
+              prefix="Green-Dot-Corporation/";
+              REPO=${fullrepo#$prefix}
+              IFS='-' read -ra REPO_PARTS <<< "${REPO}"
+
+              echo "##vso[task.setvariable variable=org;isOutput=true]${REPO_PARTS[0]}"
+              echo "##vso[task.setvariable variable=component;isOutput=true]${REPO_PARTS[2]}"
+              echo "##vso[task.setvariable variable=repo;isOutput=true]${REPO}"
+
         - task: Bash@3
           displayName: Create build_info.json
           inputs:
@@ -76,7 +92,7 @@ stages:
               echo | tee ./build_info.json <<EOF
               {
                 "JiraIssueKey": "RE-42897",
-                "RepoName": "$(Build.Repository.Name)",
+                "RepoName": "$(setvarStep.repo)",
                 "CommitHash": "$(Build.SourceVersion)"
               }
               EOF
