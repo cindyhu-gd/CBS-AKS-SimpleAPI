@@ -22,10 +22,10 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: BuildAndPublish
+- stage: GetUpdatedConfigFiles
   jobs:
-    - job: Build
-      displayName: Build Source Code
+    - job: ParseCommitHash
+      displayName: Parse Commit Hash
       steps:
         - checkout: self
         - task: Bash@3
