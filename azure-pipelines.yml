@@ -50,6 +50,7 @@ stages:
               ls -la .
               echo "git status"
               git status
+              git diff --name-only --diff-filter=d main~ main
         
         - task: Bash@3
           displayName: check files under $(Build.ArtifactStagingDirectory)
