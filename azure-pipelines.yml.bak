@@ -1,0 +1,136 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Green-Dot-Corporation
+      name: Green-Dot-Corporation/re-ado-pipelines
+      ref: RE-42897
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: BuildAndPublish
+  jobs:
+    - job: Build
+      displayName: Build Source Code
+      steps:
+        - checkout: self
+        - task: Bash@3
+          displayName: check repo structure
+          inputs:
+            targetType: 'inline'
+            script: |
+              pwd
+              ls -la
+        - task: Bash@3
+          name: gitconfig
+          inputs:
+            targetType: 'inline'
+            script: |
+              echo "git config --list"
+              git config --list
+              echo "git fetch"
+              git fetch
+              git branch -a
+              echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
+              git checkout $(Build.SourceBranchName)
+              ls -la .
+        - task: UseDotNet@2
+          displayName: 'Install .NET Core SDK 7.x'
+          inputs:
+            version: 7.x
+            performMultiLevelLookup: true
+            includePreviewVersions: true # Required for preview versions
+        - task: UseDotNet@2
+          displayName: 'Install .NET Core SDK 7.x'
+          inputs:
+            version: 7.x
+            performMultiLevelLookup: true
+            includePreviewVersions: true # Required for preview versions
+
+        - script: dotnet build --configuration $(buildConfiguration) 
+          displayName: dotnet build
+
+        - task: DotNetCoreCLI@2
+          displayName: dotnet publish
+          inputs:
+            command: 'publish'
+            publishWebProjects: false
+            projects: 'src/SimpleAPI/SimpleAPI.csproj'
+            arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:PackageId=SimpleAPI /p:PackageVersion=1.0.0'
+            zipAfterPublish: true
+
+        - task: Bash@3
+          displayName: check files under $(Build.ArtifactStagingDirectory)
+          inputs:
+            targetType: 'inline'
+            script: |
+              dir '$(Build.ArtifactStagingDirectory)'
+
+          #Setting variables to be used in future steps
+        - task: Bash@3
+          name: setvarStep
+          displayName: 'Set Variables'
+          inputs:
+            targetType: 'inline'
+            script: |
+              fullrepo="$(Build.Repository.Name)"
+              prefix="cindyhu-gd/";
+              REPO=${fullrepo#$prefix}
+              IFS='-' read -ra REPO_PARTS <<< "${REPO}"
+              
+              echo "##[debug]REPO: $REPO"
+              echo "##vso[task.setvariable variable=org;isOutput=true]${REPO_PARTS[0]}"
+              echo "##vso[task.setvariable variable=component;isOutput=true]${REPO_PARTS[2]}"
+              echo "##vso[task.setvariable variable=repo;isOutput=true]${REPO}"
+
+        - task: Bash@3
+          displayName: Create build_info.json
+          inputs:
+            targetType: 'inline'
+            script: |
+              cd '$(Build.ArtifactStagingDirectory)'
+              echo | tee ./build_info.json <<EOF
+              {
+                "JiraIssueKey": "RE-42897",
+                "RepoName": "$(setvarStep.repo)",
+                "CommitHash": "$(Build.SourceVersion)"
+              }
+              EOF
+              ls -l .
+        - task: PublishPipelineArtifact@1
+          inputs:
+            artifactName: 'chart'
+            path: $(Build.ArtifactStagingDirectory)
+
+    - job: PublishREScripts
+      steps:
+        - checkout: templates
+        - task: Bash@3
+          displayName: Copy RE scripts
+          inputs:
+            targetType: 'inline'
+            script: |
+              echo "System.DefaultWorkingDirectory: $(System.DefaultWorkingDirectory)"
+              pwd
+              ls -la
+              mkdir -p publish
+              cp -f "scripts/AddDeployResultOnJiraIssue.sh" publish/
+              ls -l .
+        - task: PublishPipelineArtifact@1
+          inputs:
+            artifactName: 'RE'
+            path: publish
