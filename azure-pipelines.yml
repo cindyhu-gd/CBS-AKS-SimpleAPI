@@ -35,6 +35,19 @@ stages:
             script: |
               pwd
               ls -la
+        - task: Bash@3
+          name: gitconfig
+          inputs:
+            targetType: 'inline'
+            script: |
+              echo "git config --list"
+              git config --list
+              echo "git fetch"
+              git fetch
+              git branch -a
+              echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
+              git checkout $(Build.SourceBranchName)
+              ls -la .
         - task: UseDotNet@2
           displayName: 'Install .NET Core SDK 7.x'
           inputs:
