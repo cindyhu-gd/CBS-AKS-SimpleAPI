@@ -51,6 +51,7 @@ stages:
               git checkout $(Build.SourceBranchName)
               echo "git status"
               git status
+              git checkout main
               git diff --name-only --diff-filter=d main~ main
         
         - task: Bash@3
