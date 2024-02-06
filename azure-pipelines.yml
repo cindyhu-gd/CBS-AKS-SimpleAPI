@@ -48,6 +48,7 @@ stages:
               #echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
               #git checkout $(Build.SourceBranchName)
               ls -la .
+              git checkout $(Build.SourceBranchName)
               echo "git status"
               git status
               git diff --name-only --diff-filter=d main~ main
