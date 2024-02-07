@@ -67,14 +67,20 @@ stages:
               git status
               echo "git log --oneline"
               git log --oneline
-              echo "git log"
-              git log
+              
+              echo "git reflog"
+              git reflog
 
-              echo "git log origin/main"
-              git log origin/main
+              #echo "git log"
+              #git log
 
-              echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
-              git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
+              #echo "git log origin/main"
+              #git log origin/main
+
+
+
+              #echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
+              #git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
