@@ -49,8 +49,8 @@ stages:
               
               echo "git tag -l"
               git tag -l
-              #echo "git switch $(Build.SourceBranchName)"
-              #git switch $(Build.SourceBranchName)
+              echo "git switch $(Build.SourceBranchName)"
+              git switch $(Build.SourceBranchName)
 
               #echo "git pull"
               #git pull
