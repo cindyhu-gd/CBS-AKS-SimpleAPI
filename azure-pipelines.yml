@@ -28,6 +28,7 @@ stages:
       displayName: Parse Commit Hash
       steps:
         - checkout: self
+          fetchDepth: 2
           clean: true
           persistCredentials: true
         - task: Bash@3
@@ -43,8 +44,8 @@ stages:
             targetType: 'inline'
             script: |
 
-              echo "git fetch -all"
-              git fetch --all --depth=10
+              #echo "git fetch -all"
+              #git fetch --all --depth=10
               
               echo "git tag -l"
               git tag -l
