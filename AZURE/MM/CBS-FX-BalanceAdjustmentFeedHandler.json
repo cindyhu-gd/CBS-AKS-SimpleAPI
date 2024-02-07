@@ -2,7 +2,7 @@
     "environment": {
         "eastusdev": {
             "RedisEndpoints": "dv-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
-            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 1
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 2
         },
         "eastusqa": {
             "RedisEndpoints": "qa-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
