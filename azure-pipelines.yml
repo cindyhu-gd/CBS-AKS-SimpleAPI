@@ -44,18 +44,21 @@ stages:
               #git config --list
               #echo "git fetch"
               #git fetch
-              echo "git branch"
-              git branch
-              echo "git branch -a"
-              git branch -a
-              echo "git remote -v"
-              git remote -v
+
               echo "git fetch -all"
               git fetch --all
               echo "git tag -l"
               git tag -l
               echo "git switch $(Build.SourceBranchName)"
               git switch $(Build.SourceBranchName)
+
+              echo "git branch"
+              git branch
+              echo "git branch -a"
+              git branch -a
+              echo "git remote -v"
+              git remote -v
+              
               #echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
               #git checkout $(Build.SourceBranchName)
               ls -la .
