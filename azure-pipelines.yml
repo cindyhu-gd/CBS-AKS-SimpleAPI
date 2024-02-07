@@ -40,17 +40,17 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              #echo "git config --list"
-              #git config --list
-              #echo "git fetch"
-              #git fetch
 
               echo "git fetch -all"
               git fetch --all
+              
               echo "git tag -l"
               git tag -l
               echo "git switch $(Build.SourceBranchName)"
               git switch $(Build.SourceBranchName)
+
+              echo "git pull"
+              git pull
 
               echo "git branch"
               git branch
@@ -69,6 +69,10 @@ stages:
               git log --oneline
               echo "git log"
               git log
+
+              echo "git log origin/main"
+              git log origin/main
+
               echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
               git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
               git diff --name-only --diff-filter=d main~1 main
