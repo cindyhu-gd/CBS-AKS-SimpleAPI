@@ -12,6 +12,7 @@ resources:
       ref: RE-42897
 trigger:
 - main
+pr:none
 
 pool:
   vmImage: 'ubuntu-latest'
