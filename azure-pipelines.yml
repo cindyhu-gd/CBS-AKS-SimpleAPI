@@ -44,6 +44,9 @@ stages:
               #git config --list
               #echo "git fetch"
               #git fetch
+              echo "git branch"
+              git branch
+              echo "git branch -a"
               git branch -a
               #echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
               #git checkout $(Build.SourceBranchName)
