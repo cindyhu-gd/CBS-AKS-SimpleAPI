@@ -43,49 +43,15 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-
-              echo "git fetch -all"
+              ##[command]git fetch --all
               git fetch --all
-              
-              echo "git tag -l"
-              git tag -l
-              echo "git switch $(Build.SourceBranchName)"
+              ##[command]git switch $(Build.SourceBranchName)
               git switch $(Build.SourceBranchName)
-
-              #echo "git pull"
-              #git pull
-
-              echo "git branch"
-              git branch
-              echo "git branch -a"
-              git branch -a
-              echo "git remote -v"
-              git remote -v
-              
-              #echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
-              #git checkout $(Build.SourceBranchName)
-              ls -la .
-              #git checkout $(Build.SourceBranchName)
-              echo "git status"
+              ##[command]git status
               git status
-              echo "git log --oneline"
+              ##[command]git log --oneline"
               git log --oneline
-              
-              #echo "git reflog"
-              #git reflog
-
-              #echo "git log"
-              #git log
-
-              #echo "git log origin/main"
-              #git log origin/main
-
-
-
-              #echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
-              #git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
-              #echo "git diff main HEAD~1"
-              #git diff main HEAD~1
+              ##[command]git diff --name-only --diff-filter=d main~1 main
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
