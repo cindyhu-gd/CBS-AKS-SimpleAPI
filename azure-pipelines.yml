@@ -62,7 +62,8 @@ stages:
               #git checkout $(Build.SourceBranchName)
               echo "git status"
               git status
-              #git checkout main
+              echo "git log --oneline"
+              git log --oneline
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
