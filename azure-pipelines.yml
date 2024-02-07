@@ -49,11 +49,11 @@ stages:
               
               echo "git tag -l"
               git tag -l
-              echo "git switch $(Build.SourceBranchName)"
-              git switch $(Build.SourceBranchName)
+              #echo "git switch $(Build.SourceBranchName)"
+              #git switch $(Build.SourceBranchName)
 
-              echo "git pull"
-              git pull
+              #echo "git pull"
+              #git pull
 
               echo "git branch"
               git branch
@@ -71,8 +71,8 @@ stages:
               echo "git log --oneline"
               git log --oneline
               
-              echo "git reflog"
-              git reflog
+              #echo "git reflog"
+              #git reflog
 
               #echo "git log"
               #git log
@@ -84,8 +84,8 @@ stages:
 
               #echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
               #git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
-              echo "git diff main HEAD~1"
-              git diff main HEAD~1
+              #echo "git diff main HEAD~1"
+              #git diff main HEAD~1
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
