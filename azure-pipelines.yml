@@ -81,9 +81,9 @@ stages:
 
 
 
-              #echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
-              #git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
-              git diff --name-only --diff-filter=d main~1 main
+              echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
+              git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
+              git diff --name-only --diff-filter=d main~ main
         
         - task: Bash@3
           displayName: check files under $(Build.ArtifactStagingDirectory)
