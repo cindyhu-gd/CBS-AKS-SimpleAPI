@@ -44,11 +44,11 @@ stages:
               #git config --list
               #echo "git fetch"
               #git fetch
-              #git branch -a
+              git branch -a
               #echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
               #git checkout $(Build.SourceBranchName)
               ls -la .
-              git checkout $(Build.SourceBranchName)
+              #git checkout $(Build.SourceBranchName)
               echo "git status"
               git status
               #git checkout main
