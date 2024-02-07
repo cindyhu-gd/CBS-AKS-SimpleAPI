@@ -51,7 +51,6 @@ stages:
               git status
               echo "##[command]git log --oneline"
               git log --oneline
-              echo "##[command]git diff --name-only --diff-filter=d main~1 main"
 
               modifiedFiles=`git diff --name-only --diff-filter=d main~ main`
               echo "##[debug]modifiedFiles: $modifiedFiles"
