@@ -1,0 +1,42 @@
+{
+    "dv": {
+        "RedisEndpoints": "dv-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 2
+    },
+    "qa": {
+        "RedisEndpoints": "qa-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 2
+    },
+    "pf": {
+        "RedisEndpoints": "pf-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 3
+    },
+    "pi": {
+        "RedisEndpoints": "pi-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 4
+    },
+    "pd": {
+        "RedisEndpoints": "pd-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 5
+    },
+    "dvw": {
+        "RedisEndpoints": "dv-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 6
+    },
+    "qaw": {
+        "RedisEndpoints": "qa-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 7
+    },
+    "pfw": {
+        "RedisEndpoints": "pf-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 8
+    },
+    "piw": {
+        "RedisEndpoints": "pi-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 9
+    },
+    "pdw": {
+        "RedisEndpoints": "pd-test-cache.eastus.redisenterprise.cache.azure.net:10000",
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 10
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "environment": {
+        "eastusdev": {
+            "RedisEndpoints": "dv-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 1
+        },
+        "eastusqa": {
+            "RedisEndpoints": "qa-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 0
+        },
+        "eastusprf": {
+            "RedisEndpoints": "pf-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 100
+        },
+        "eastuspie": {
+            "RedisEndpoints": "pi-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 100
+        },
+        "eastusprod": {
+            "RedisEndpoints": "pd-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 100
+        }
+    }
+}
