@@ -28,6 +28,8 @@ stages:
       displayName: Parse Commit Hash
       steps:
         - checkout: self
+          clean: true
+          persistCredentials: true
         - task: Bash@3
           displayName: check repo structure
           inputs:
@@ -42,7 +44,7 @@ stages:
             script: |
 
               echo "git fetch -all"
-              git fetch --all
+              git fetch --all --depth=10
               
               echo "git tag -l"
               git tag -l
