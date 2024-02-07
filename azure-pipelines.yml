@@ -66,6 +66,8 @@ stages:
               git log --oneline
               echo "git log"
               git log
+              echo "git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
+              git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
