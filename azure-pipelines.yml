@@ -64,6 +64,8 @@ stages:
               git status
               echo "git log --oneline"
               git log --oneline
+              echo "git log"
+              git log
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
