@@ -52,8 +52,24 @@ stages:
               echo "##[command]git log --oneline"
               git log --oneline
               echo "##[command]git diff --name-only --diff-filter=d main~1 main"
-              git diff --name-only --diff-filter=d main~1 main
-        
+
+              modifiedFiles=`git diff --name-only --diff-filter=d main~ main`
+              echo "##[debug]modifiedFiles: $modifiedFiles"
+
+              # convert space separated string to array
+              modifiedFilesArray=($modifiedFiles)
+              UpdatedConfigs=()
+              for item in "${modifiedFilesArray[@]}"
+              do
+                  echo "Processing $item"
+                  if [[ $item != *.json ]]; then
+                      echo "Excluding $item"
+                  else
+                      UpdatedConfigs+=($item)
+                  fi
+              done
+              echo "##[debug]UpdatedConfigs: ${UpdatedConfigs[@]}"
+
         - task: Bash@3
           displayName: check files under $(Build.ArtifactStagingDirectory)
           inputs:
