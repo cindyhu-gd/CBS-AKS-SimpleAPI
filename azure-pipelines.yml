@@ -43,15 +43,15 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              ##[command]git fetch --all
+              echo "##[command]git fetch --all"
               git fetch --all
-              ##[command]git switch $(Build.SourceBranchName)
+              echo "##[command]git switch $(Build.SourceBranchName)"
               git switch $(Build.SourceBranchName)
-              ##[command]git status
+              echo "##[command]git status"
               git status
-              ##[command]git log --oneline"
+              echo "##[command]git log --oneline"
               git log --oneline
-              ##[command]git diff --name-only --diff-filter=d main~1 main
+              echo "##[command]git diff --name-only --diff-filter=d main~1 main"
               git diff --name-only --diff-filter=d main~1 main
         
         - task: Bash@3
