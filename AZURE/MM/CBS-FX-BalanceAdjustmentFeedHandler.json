@@ -10,7 +10,7 @@
         },
         "eastusprf": {
             "RedisEndpoints": "pf-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
-            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 100
+            "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 10
         },
         "eastuspie": {
             "RedisEndpoints": "pi-gen-eus-001-cache.eastus.redisenterprise.cache.azure.net:10000",
