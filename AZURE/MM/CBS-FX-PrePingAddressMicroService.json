@@ -1,7 +1,7 @@
 {
     "dv": {
         "RedisEndpoints": "dv-test-cache.eastus.redisenterprise.cache.azure.net:10000",
-        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 1
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 3
     },
     "qa": {
         "RedisEndpoints": "qa-test-cache.eastus.redisenterprise.cache.azure.net:10000",
