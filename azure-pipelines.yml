@@ -48,6 +48,10 @@ stages:
               git branch
               echo "git branch -a"
               git branch -a
+              echo "git remote -v"
+              git remote -v
+              echo "git fetch -all"
+              git fetch -all
               echo "git switch $(Build.SourceBranchName)"
               git switch $(Build.SourceBranchName)
               #echo "##[debug]uild.SourceBranchName: $(Build.SourceBranchName)"
