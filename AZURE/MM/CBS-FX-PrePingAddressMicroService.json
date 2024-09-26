@@ -5,7 +5,7 @@
     },
     "qa": {
         "RedisEndpoints": "qa-test-cache.eastus.redisenterprise.cache.azure.net:10000",
-        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 0
+        "MESSAGE_ADVICE_ENRICHMENT_PERCENTAGE": 9
     },
     "pf": {
         "RedisEndpoints": "pf-test-cache.eastus.redisenterprise.cache.azure.net:10000",
